@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyudaPeludo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    
+</head>
+<body>
+   
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <input id="enviar" type="button" value="Enviar"></input>
+
+                <table id="categorias" >
+
+               
+            </div>
+        </div>
+    </div>
+
+    <script >
+        $("#enviar").click(function() {
+            $.get("https://www.themealdb.com/api/json/v1/1/categories.php",
+            function(data){
+                $.each(data.categories, function(i, item){
+                    $("#categorias").append("<tr><td>"+item.idCategory+"</td><td>"+item.strcategory+
+                        "</td><td><img src='"+item.strCategoryThumb+"'>"+
+                        "</td><td>"+item.strCategoryDescription+"</td></tr>");
+                })
+
+                $("#categorias").append("</table>");
+            })
+        })
+  </script>
+</body>
+</html>
