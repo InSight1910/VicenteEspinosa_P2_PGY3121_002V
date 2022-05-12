@@ -30,11 +30,13 @@
         $("#enviar").click(function() {
             $.get("https://www.themealdb.com/api/json/v1/1/categories.php",
             function(data){
-                $.each(data.categories, function(i, item){
-                    $("#categorias").append("<tr><td>"+item.idCategory+"</td><td>"+item.strcategory+
-                        "</td><td><img src='"+item.strCategoryThumb+"'>"+
-                        "</td><td>"+item.strCategoryDescription+"</td></tr>");
-                })
+                $.each(data.categories, function(i, {idCategory, strCategory, strCategoryThumb,  strCategoryDescription}){
+                   
+                    $("#categorias").append("<tr><td>"+idCategory+"</td><td>"+strCategory+
+                        "</td><td><img src='"+strCategoryThumb+"'>"+
+                        "</td><td>"+strCategoryDescription+"</td></tr>");
+                
+                    })
 
                 $("#categorias").append("</table>");
             })
