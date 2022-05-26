@@ -31,7 +31,6 @@
             $.get("https://www.themealdb.com/api/json/v1/1/categories.php",
             function(data){
                 $.each(data.categories, function(i, {idCategory, strCategory, strCategoryThumb,  strCategoryDescription}){
-                   
                     $("#categorias").append("<tr><td>"+idCategory+"</td><td>"+strCategory+
                         "</td><td><img src='"+strCategoryThumb+"'>"+
                         "</td><td>"+strCategoryDescription+"</td></tr>");
