@@ -19,8 +19,20 @@
                     <fieldset>
                     <legend>Formulario de contacto</legend>    
                     <div class="form-group">
-                        <label for="selectRegion">Seleccione su región:</label>
+                        <label for="id_region">Seleccione su región:</label>
                         <select id="id_region" class="form-control">
+                            <option value="0">Seleccione una región...</option>
+                        </select>
+                        <br>
+                        <label for="id_provincia">Seleccione su provincia:</label>
+                        <select id="id_provincia" class="form-control">
+                            <option value="0">Seleccione una provincia...</option>
+                        </select>
+                        <br>
+                        <label for="id_comuna">Seleccione su comuna:</label>
+                        <select id="id_comuna" class="form-control">
+                            <option value="0">Seleccione una comuna...</option>
+                        </select>
                         <br>
                         </div> 
                     </fieldset>
@@ -33,15 +45,37 @@
         $(document).ready(function() {
             $.get("https://apps.gasco.cl/v1/locationService/regions/getAllRegions/",
             function(data){
-                $("#id_region").append('<option value="0">Seleccione una región</option>');
-                
                 $.each(data.data, function(i, {id, name, ordinal}){
                     $("#id_region").append('<option value="'+id+'">'+name+' ('+ordinal+')</option>');
                 })
-
-                $("#id_region").append('</select>');
             })
         }) 
+
+        $('#id_region').change(function() {
+            var selected_region = $('#id_region').val();
+            var endpoint = "https://apps.gasco.cl/v1/locationService/provinces/byRegionId/"+selected_region+"/"
+            $.get(endpoint,
+            function(data){
+                $("#id_provincia").html("<option value=\"0\">Seleccione una provincia...</option>");
+                $.each(data.data, function(i, {id, name, regionId}){
+                    $("#id_provincia").append('<option value="'+id+'">'+name+'</option>');
+                })
+            }) 
+        })
+
+        $('#id_provincia').change(function() {
+            var selected_provincia = $('#id_provincia').val();
+            var endpoint = "https://apps.gasco.cl/v1/locationService/communes/byProvinceId/"+selected_provincia+"/"
+            $.get(endpoint,
+            function(data){
+                $("#id_comuna").html("<option value=\"0\">Seleccione una comuna...</option>");
+                $.each(data.data, function(i, {id, name}){
+                    $("#id_comuna").append('<option value="'+id+'">'+name+'</option>');
+                })
+            }) 
+        })
+
+
   </script>
 </body>
 </html>
