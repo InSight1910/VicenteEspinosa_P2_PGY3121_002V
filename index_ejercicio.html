@@ -51,14 +51,22 @@
             })
         }) 
 
+        // variables
+
+        var endpoint_region = "https://apps.gasco.cl/v1/locationService/provinces/byRegionId/"
+
         $('#id_region').change(function() {
             var selected_region = $('#id_region').val();
-            var endpoint = "https://apps.gasco.cl/v1/locationService/provinces/byRegionId/"+selected_region+"/"
-            $.get(endpoint,
+            $.get(endpoint_region+selected_region+"/",
             function(data){
-                $("#id_provincia").html("<option value=\"0\">Seleccione una provincia...</option>");
+                // $("#id_provincia").html("<option value=\"0\">Seleccione una provincia...</option>");
+                $("#id_provincia").empty().append(new Option("Seleccione una provincia...", 0));
+
+                // $("#id_comuna").html("<option value=\"0\">Seleccione una comuna...</option>");
+                $("#id_comuna").empty().append(new Option("Seleccione una comuna...", 0));;
+
                 $.each(data.data, function(i, {id, name, regionId}){
-                    $("#id_provincia").append('<option value="'+id+'">'+name+'</option>');
+                    $("#id_provincia").append(new Option(name, id));
                 })
             }) 
         })
@@ -68,9 +76,9 @@
             var endpoint = "https://apps.gasco.cl/v1/locationService/communes/byProvinceId/"+selected_provincia+"/"
             $.get(endpoint,
             function(data){
-                $("#id_comuna").html("<option value=\"0\">Seleccione una comuna...</option>");
+                $("#id_comuna").empty().append(new Option("Seleccione una comuna...", 0));
                 $.each(data.data, function(i, {id, name}){
-                    $("#id_comuna").append('<option value="'+id+'">'+name+'</option>');
+                    $("#id_comuna").append(new Option(name, id));
                 })
             }) 
         })
