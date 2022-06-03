@@ -15,20 +15,89 @@
 	</head>
 	<body>
 		<div class="container-fluid">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<nav
+				class="navbar navbar-expand-lg navbar-light bg-light"
+				style="z-index: 999999"
+			>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item active">
 							<a class="nav-link" href="./index.html"
-								>Home <span class="sr-only">(current)</span></a
+								>Inicio <span class="sr-only">(current)</span></a
 							>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./sistema_alerta.html">Link</a>
+							<a class="nav-link" href="./sistema_alerta.html"
+								>Sistema de alerta</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./contacto.html">Contacto</a>
 						</li>
 					</ul>
 				</div>
 			</nav>
+			<div id="dashboard">
+				<div class="row my-5">
+					<div class="col-md-6">
+						<div class="card mx-auto" style="width: 25rem">
+							<div class="card-body" id="ultimos_sismos_chile">
+								<h5 class="card-title">Ultimos sismos</h5>
+								<ul></ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mx-auto" style="width: 25rem">
+							<div class="card-body" id="tsunami_chile">
+								<h5 class="card-title">Tsunamis</h5>
+								<ul></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mx-auto" style="width: 25rem">
+							<div class="card-body" id="onemi">
+								<h5 class="card-title">Onemi</h5>
+								<ul></ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mx-auto" style="width: 25rem">
+							<div class="card-body" id="ultimos_sismos">
+								<h5 class="card-title">Ultimos 15 sismos</h5>
+								<ul></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light mt-5">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="./index.html"
+							>Inicio <span class="sr-only">(current)</span></a
+						>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./sistema_alerta.html"
+							>Sistema de alerta</a
+						>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./contacto.html">Contacto</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<script src="./js/script.js"></script>
+		<script>
+			$(document).ready(() => onInitIndex());
+		</script>
 	</body>
 </html>

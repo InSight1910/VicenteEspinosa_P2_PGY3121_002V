@@ -1,10 +1,7 @@
 let getBasePATH = (select, limit = "") =>
-	`https://chilealerta.com/api/query/?user=andr3iss&select=${select}${
+	`https://chilealerta.com/api/query/?user=demo&select=${select}${
 		limit ? `&limit=${limit}` : ""
 	}`;
-$.ready(() => {
-	$("#table").hide();
-});
 
 $(document).ready(() => {
 	$("#table").hide();
@@ -15,12 +12,12 @@ let onChange = (e) => {
 	let value = e.value;
 	[value, limit] = value.includes(";") ? value.split(";") : [value, ""];
 	let url = getBasePATH(value, limit);
-
 	value == "0"
 		? $("#tbody").empty()
 		: value == "onemi"
 		? $.get(url, (data) => {
 				$("#tbody").empty();
+
 				$("#thead")
 					.empty()
 					.append(
@@ -42,10 +39,44 @@ let onChange = (e) => {
 					);
 				data = data[value];
 
-				data.forEach(({ source, magnitude, utc_time, reference }) =>
+				data.forEach(({ source, magnitude, utc_time, local_time, reference }) =>
 					$("#tbody").append(
-						`<tr><th scope="row">${source}</th><td>${magnitude}</td><td>${reference}</td><td>${utc_time}</td></tr>`
+						`<tr><th scope="row">${source}</th><td>${magnitude}</td><td>${reference}</td><td>${
+							utc_time || local_time
+						}</td></tr>`
 					)
 				);
 		  });
+};
+
+const createDiv = ({ source, magnitude, utc_time, local_time, reference }) =>
+	source;
+
+const onInitIndex = () => {
+	const idDivs = [
+		"ultimos_sismos",
+		"tsunami_chile",
+		"ultimos_sismos_chile",
+		"onemi",
+	];
+	idDivs.forEach((item) => {
+		setTimeout(() => "", 60001);
+		let url = getBasePATH(item);
+		item == "onemi"
+			? $.get(url, (data) => {
+					let { post_title, alert_region, alert_date, url } = data[item][0];
+					$(`#${item} ul`).append(
+						`<li>${post_title}<li/><li>${alert_date}<li/><li>${alert_region}<li/>`
+					);
+			  })
+			: $.get(url, (data) => {
+					let { source, magnitude, utc_time, local_time, reference } =
+						data[item][0];
+					$(`#${item} ul`).append(
+						`<li>${magnitude}<li/><li>${
+							utc_time || local_time
+						}<li/> <li>${source}<li/>`
+					);
+			  });
+	});
 };
